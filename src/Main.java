@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     public static Main app;
     public String[][] grid;
-    private ArrayList<String> selectedWords;
+    public ArrayList<String> selectedWords;
     private ArrayList<Category> categories;
     private ArrayList<String> categoryWords;
     private String[] yellowWords;
@@ -14,6 +14,7 @@ public class Main extends PApplet{
     private String[] blueWords;
     private String[] purpleWords;
     private boolean startScreen;
+    private boolean submitGuess;
     private boolean draw;
     private int x;
     private int y;
@@ -114,6 +115,14 @@ public class Main extends PApplet{
             shuffle();
             draw = true;
         }
+        if(key == 'm') {
+            System.out.println(selectedWords.size());
+        }
+        if(key == ' ') {
+            if(submitGuess) {
+                //submit guess
+            }
+        }
     }
     public void setCategoryWords() {
         for(int i = 0; i < categories.size(); i++) {
@@ -129,11 +138,17 @@ public class Main extends PApplet{
     public void mouseClicked() {
         for (Panel panel : panels) {
             panel.handleMouseClicked(mouseX, mouseY);
-            if(selectedWords.size() <= 4) {
-                selectedWords.add(panel.getWord());
-            }
-            System.out.println(selectedWords.size());
         }
+    }
+    public void clearSelectedWords() {
+        draw();
+        selectedWords.clear();
+    }
+    public void submitGuess() {
+        submitGuess = true;
+    }
+    public void removeSelectedWord(int index) {
+        selectedWords.remove(index);
     }
 }
 //x values are 140,380,620,860

@@ -19,6 +19,10 @@ public class Panel {
             Main.app.fill(240, 236, 228);
             Main.app.stroke(240, 236, 228);
         }
+        else {
+            Main.app.fill(90, 89, 78);
+            Main.app.stroke(90, 89, 78);
+        }
         Main.app.rect(x, y, 200, 100);
         Main.app.textSize(30);
         Main.app.fill(0);
@@ -31,8 +35,21 @@ public class Panel {
     }
 
     public void handleMouseClicked(int mX, int mY){
-        if (mX > x && mX < (x + w) && mY > y && mY < (y + h)){
+        if (mX > x && mX < (x + w) && mY > y && mY < (y + h)) {
             System.out.println("Mouse clicked Panel at (" + x + ", " + y + ")");
+            if (Main.app.selectedWords.size() < 4 && !Main.app.selectedWords.contains(word)) {
+                Main.app.selectedWords.add(word);
+                defaultColor = false;
+            }
+            else if(Main.app.selectedWords.contains(word)) {
+                int index = Main.app.selectedWords.indexOf(word);
+                Main.app.removeSelectedWord(index);
+                defaultColor = true;
+            }
+            else {
+                defaultColor = true;
+                Main.app.submitGuess();
+            }
         }
     }
 
