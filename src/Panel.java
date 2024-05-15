@@ -4,6 +4,7 @@ public class Panel {
     private int x, y;
     private int w, h;
     private String word;
+    private boolean defaultColor;
 
     public Panel(int x, int y, int w, int h, String word){
         this.x = x;
@@ -11,9 +12,13 @@ public class Panel {
         this.w = w;
         this.h = h;
         this.word = word;
+        defaultColor = true;
     }
     public void display(){
-        Main.app.fill(240, 236, 228);
+        if(defaultColor) {
+            Main.app.fill(240, 236, 228);
+            Main.app.stroke(240, 236, 228);
+        }
         Main.app.rect(x, y, 200, 100);
         Main.app.textSize(30);
         Main.app.fill(0);
@@ -23,7 +28,6 @@ public class Panel {
         else {
             Main.app.text(word, x + 10, y + 60);
         }
-        Main.app.stroke(240, 236, 228);
     }
 
     public void handleMouseClicked(int mX, int mY){
@@ -61,5 +65,9 @@ public class Panel {
     public void setWord(String w) {
         word = w;
     }
-
+    public void setColor(int r, int g, int b) {
+        Main.app.fill(r,g,b);
+        Main.app.stroke(r,g,b);
+        display();
+    }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     public static Main app;
     public String[][] grid;
+    private ArrayList<String> selectedWords;
     private ArrayList<Category> categories;
     private ArrayList<String> categoryWords;
     private String[] yellowWords;
@@ -28,6 +29,7 @@ public class Main extends PApplet{
     public Main() {
         categories = new ArrayList<Category>();
         categoryWords = new ArrayList<String>();
+        selectedWords = new ArrayList<String>();
         grid = new String[4][4];
         startScreen = true;
         draw = true;
@@ -47,12 +49,12 @@ public class Main extends PApplet{
         Panel p;
         panels = new ArrayList<Panel>();
         //size is NUMS_PANELS_VERTICAL*NUM_PANELS_HORIZONTAL;
-        int w = width/NUM_PANELS_HORIZONTAL;
-        int h = height/NUMS_PANELS_VERTICAL;
+        int w = width/NUM_PANELS_HORIZONTAL-60;
+        int h = height/NUMS_PANELS_VERTICAL-60;//subtract makes panels closer together
         for (int i = 0; i <NUMS_PANELS_VERTICAL; i++) {
             for (int j = 0; j < NUM_PANELS_HORIZONTAL; j++) {
-                int x = j*w;
-                int y = i*h;
+                int x = j*w+140;
+                int y = i*h+180;
                 p = new Panel(x, y, w, h,"");
                 panels.add(p);
             }
@@ -66,82 +68,18 @@ public class Main extends PApplet{
         draw = true;
     }
 
-    /*public void draw() {
-        if(draw) {
-            if(startScreen) {
-                background(255);
-                fill(0);
-                textSize(50);
-                text("Connections", 450,100);
-                textSize(25);
-            }
-            else{
-                background(255);
-                fill(0);
-                textSize(50);
-                text("Connections", 450,100);
-                textSize(25);
-                for (int i = 0; i < grid.length; i++) {
-                    for(int j = 0; j < grid[0].length;j++) {
-                        if (i == 0 && j == 0) {
-                            x = 170;
-                            y = 170;
-                        }
-                        if(i>0 && j ==0) {
-                            x=170;
-                            y+=120;
-                        }
-                        else if(j>0) {
-                            x += 225;
-                        }
-                        if(mouseX > x && mouseX > 200 && mouseY > y && mouseY < 100) {
-                            stroke(240, 236, 228);
-                            fill(240, 236, 228);
-                        }
-                        else {
-                            stroke(240, 236, 228);
-                            fill(240, 236, 228);
-                        }
-                        rect(x, y, 200, 100);
-                        textSize(30);
-                        fill(0);
-                        if(grid[i][j].length() <= 6) {
-                            text(grid[i][j], x + 60, y + 60);
-                        }
-                        else {
-                            text(grid[i][j], x + 10, y + 60);
-                        }
-                    }
-                }
-                fill(0);
-                text("Mistakes remaining: " + mistakesRemaining, 475, 725);
-                draw = false;
-            }
-        }
-    }*/
     public void draw() {
         if(startScreen) {
             background(255);
             fill(0);
             textSize(50);
-            text("Connections", 450,100);
+            text("Connections", 470,100);
             textSize(25);
         }
         else {
             for (Panel panel : panels) {
                 panel.display();
             }
-            /*for(int i = 0; i < grid.length; i++) {
-                for(int j = 0; j < grid[0].length; j++) {
-                    fill(0);
-                    if(grid[i][j].length() <= 6) {
-                        text(grid[i][j], x + 60, y + 60);
-                    }
-                    else {
-                        text(grid[i][j], x + 10, y + 60);
-                    }
-                }
-            }*/
         }
     }
     public void resorting() {
@@ -171,7 +109,7 @@ public class Main extends PApplet{
             background(255);
             fill(0);
             textSize(50);
-            text("Connections", 450,100);
+            text("Connections", 470,100);
             textSize(25);
             shuffle();
             draw = true;
@@ -189,11 +127,14 @@ public class Main extends PApplet{
         //remove category from arrayList
     }
     public void mouseClicked() {
-        handleMouseClicked(mouseX, mouseY);
-    }
-    public void handleMouseClicked(int mX, int mY) {
-        if (mX > x && mX < (x+200) && mY > y && mY < (y+100)){
-            System.out.println("Mouse clicked at (" + x + ", " + y + ")");
+        for (Panel panel : panels) {
+            panel.handleMouseClicked(mouseX, mouseY);
+            if(selectedWords.size() <= 4) {
+                selectedWords.add(panel.getWord());
+            }
+            System.out.println(selectedWords.size());
         }
     }
 }
+//x values are 140,380,620,860
+//y values are 180, 307, 434, 561
