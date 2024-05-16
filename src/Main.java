@@ -122,7 +122,7 @@ public class Main extends PApplet{
             if(selectedWords.size() == 4) {
                 System.out.println(foundCategory());
                 draw();
-                if(foundCategory().equals("W")) {
+                if(foundCategory().equals("W") || foundCategory().equals("1")) {
                     mistakesRemaining--;
                     reset();
                 }
