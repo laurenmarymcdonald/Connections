@@ -3,13 +3,11 @@ public class Category {
     private String categoryName;
     private String[] words;
     private String color;
-    private int iD;
     private boolean guessed;
-    public Category (String categoryName, String[] words, String color, int iD){
+    public Category (String categoryName, String[] words, String color){
         this.categoryName = categoryName;
         this.words = words;
         this.color = color;
-        this.iD = iD;
         guessed = false;
     }
     public String getCategoryName(){
@@ -20,9 +18,6 @@ public class Category {
     }
     public String getColor(){
         return color;
-    }
-    public int getID(){
-        return iD;
     }
     public boolean getGuessed(){
         return guessed;

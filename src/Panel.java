@@ -48,7 +48,6 @@ public class Panel {
             }
             else {
                 defaultColor = true;
-                Main.app.submitGuess();
             }
         }
     }
@@ -81,10 +80,5 @@ public class Panel {
     }
     public void setWord(String w) {
         word = w;
-    }
-    public void setColor(int r, int g, int b) {
-        Main.app.fill(r,g,b);
-        Main.app.stroke(r,g,b);
-        display();
     }
 }

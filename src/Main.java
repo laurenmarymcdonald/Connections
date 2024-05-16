@@ -14,10 +14,6 @@ public class Main extends PApplet{
     private String[] blueWords;
     private String[] purpleWords;
     private boolean startScreen;
-    private boolean submitGuess;
-    private boolean draw;
-    private int x;
-    private int y;
     private int mistakesRemaining;
     private final int NUM_PANELS_HORIZONTAL = 4;
     private final int NUMS_PANELS_VERTICAL = 4;
@@ -33,7 +29,6 @@ public class Main extends PApplet{
         selectedWords = new ArrayList<String>();
         grid = new String[4][4];
         startScreen = true;
-        draw = true;
         app = this;
         yellowWords = new String[]{"Tie Ceremony", "FDD", "Senior Mom Dance","Arillaga Speaker"};
         greenWords = new String[]{"Cut shirts", "Sweats", "Ugg slippers","Jeans"};
@@ -49,7 +44,6 @@ public class Main extends PApplet{
     public void setup() {
         Panel p;
         panels = new ArrayList<Panel>();
-        //size is NUMS_PANELS_VERTICAL*NUM_PANELS_HORIZONTAL;
         int w = width/NUM_PANELS_HORIZONTAL-60;
         int h = height/NUMS_PANELS_VERTICAL-60;//subtract makes panels closer together
         for (int i = 0; i <NUMS_PANELS_VERTICAL; i++) {
@@ -60,13 +54,12 @@ public class Main extends PApplet{
                 panels.add(p);
             }
         }
-        categories.add(new Category("Traditions", yellowWords, "Yellow", 1));
-        categories.add(new Category("New Banned Uniform Items", greenWords, "Green", 2));
-        categories.add(new Category("Traditions", blueWords, "Blue", 3));
-        categories.add(new Category("New Banned Uniform Items", purpleWords, "Purple", 4));
+        categories.add(new Category("Traditions", yellowWords, "Yellow"));
+        categories.add(new Category("New Banned Uniform Items", greenWords, "Green"));
+        categories.add(new Category("Traditions", blueWords, "Blue"));
+        categories.add(new Category("New Banned Uniform Items", purpleWords, "Purple"));
         setCategoryWords();
         shuffle();
-        draw = true;
     }
 
     public void draw() {
@@ -98,11 +91,9 @@ public class Main extends PApplet{
     public void keyPressed() {
         if(key == ENTER) {
             if(startScreen) {
-                draw = true;
                 startScreen = false;
             }
             else {
-                draw = true;
                 startScreen = true;
             }
         }
@@ -113,13 +104,17 @@ public class Main extends PApplet{
             text("Connections", 470,100);
             textSize(25);
             shuffle();
-            draw = true;
         }
         if(key == 'm') {
             System.out.println(selectedWords.size());
         }
         if(key == ' ') {
-            submitGuess = true;
+            if(selectedWords.size() == 4) {
+                System.out.println(foundCategory());
+            }
+            else {
+                System.out.println("not enough words selected");
+            }
         }
     }
     public void setCategoryWords() {
@@ -131,61 +126,55 @@ public class Main extends PApplet{
     }
     public String foundCategory() {
         int count = 0;
-        if (submitGuess && selectedWords.size() == 4) {
-            for (int i = 0; i < selectedWords.size(); i++) {
-                for (String str : yellowWords) {
-                    if (selectedWords.get(i).equals(str)) {
-                        count++;
-                    }
-                }
-                if (count == 4) {
-                    return "Y"; //returns yellow category
-                }
-                if (count == 3) {
-                    return "1";
+        for (String string : selectedWords) {
+            for (String str : yellowWords) {
+                if (string.equals(str)) {
+                    count++;
                 }
             }
+            if (count == 4) {
+                return "Y"; //returns yellow category
+            } else if (count == 3) {
+                return "1";
+            }
+        }
             count = 0;
-            for (int i = 0; i < selectedWords.size(); i++) {
-                for (String str : greenWords) {
-                    if (selectedWords.get(i).equals(str)) {
-                        count++;
-                    }
-                }
-                if (count == 4) {
-                    return "G"; //returns green category
-                }
-                if (count == 3) {
-                    return "1";
+        for (String s : selectedWords) {
+            for (String str : greenWords) {
+                if (s.equals(str)) {
+                    count++;
                 }
             }
+            if (count == 4) {
+                return "G"; //returns green category
+            } else if (count == 3) {
+                return "1";
+            }
+        }
             count = 0;
-            for (int i = 0; i < selectedWords.size(); i++) {
-                for (String str : blueWords) {
-                    if (selectedWords.get(i).equals(str)) {
-                        count++;
-                    }
-                }
-                if (count == 4) {
-                    return "B"; //returns blue category
-                }
-                if (count == 3) {
-                    return "1";
+        for (String word : selectedWords) {
+            for (String str : blueWords) {
+                if (word.equals(str)) {
+                    count++;
                 }
             }
+            if (count == 4) {
+                return "B"; //returns blue category
+            } else if (count == 3) {
+                return "1";
+            }
+        }
             count = 0;
-            for (int i = 0; i < selectedWords.size(); i++) {
-                for (String str : purpleWords) {
-                    if (selectedWords.get(i).equals(str)) {
-                        count++;
-                    }
+        for (String selectedWord : selectedWords) {
+            for (String str : purpleWords) {
+                if (selectedWord.equals(str)) {
+                    count++;
                 }
-                if (count == 4) {
-                    return "P"; //returns purple category
-                }
-                if (count == 3) {
-                    return "1";
-                }
+            }
+            if (count == 4) {
+                return "P"; //returns purple category
+            } else if (count == 3) {
+                return "1";
             }
         }
         return "W";
@@ -200,9 +189,6 @@ public class Main extends PApplet{
     public void clearSelectedWords() {
         draw();
         selectedWords.clear();
-    }
-    public void submitGuess() {
-        submitGuess = true;
     }
     public void removeSelectedWord(int index) {
         selectedWords.remove(index);
