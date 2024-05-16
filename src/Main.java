@@ -71,10 +71,15 @@ public class Main extends PApplet{
             textSize(25);
         }
         else {
-            text("Mistakes Remaining: " + mistakesRemaining, 470,740);
+            background(255);
+            fill(0);
+            textSize(50);
+            text("Connections", 470,100);
+            textSize(25);
             for (Panel panel : panels) {
                 panel.display();
             }
+            text("Mistakes Remaining: " + mistakesRemaining, 470,740);
         }
     }
 
@@ -116,9 +121,9 @@ public class Main extends PApplet{
         if(key == ' ') {
             if(selectedWords.size() == 4) {
                 System.out.println(foundCategory());
-                mistakesRemaining--;
                 draw();
                 if(foundCategory().equals("W")) {
+                    mistakesRemaining--;
                     reset();
                 }
             }
