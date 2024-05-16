@@ -71,6 +71,7 @@ public class Main extends PApplet{
             textSize(25);
         }
         else {
+            text("Mistakes Remaining: " + mistakesRemaining, 470,740);
             for (Panel panel : panels) {
                 panel.display();
             }
@@ -115,6 +116,11 @@ public class Main extends PApplet{
         if(key == ' ') {
             if(selectedWords.size() == 4) {
                 System.out.println(foundCategory());
+                mistakesRemaining--;
+                draw();
+                if(foundCategory().equals("W")) {
+                    reset();
+                }
             }
             else {
                 System.out.println("not enough words selected");
