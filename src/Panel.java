@@ -81,4 +81,7 @@ public class Panel {
     public void setWord(String w) {
         word = w;
     }
+    public void setDefaultColor(boolean x) {
+        defaultColor = x;
+    }
 }

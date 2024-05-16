@@ -76,10 +76,12 @@ public class Main extends PApplet{
             }
         }
     }
+
     public void resorting() {
         setCategoryWords();
         shuffle();
     }
+
     public void shuffle(){
         for (Panel panel : panels){
             int word = (int)(Math.random()*categoryWords.size());
@@ -87,7 +89,9 @@ public class Main extends PApplet{
             categoryWords.remove(word);
         }
         setCategoryWords();
+        reset();
     }
+
     public void keyPressed() {
         if(key == ENTER) {
             if(startScreen) {
@@ -117,6 +121,7 @@ public class Main extends PApplet{
             }
         }
     }
+
     public void setCategoryWords() {
         for(int i = 0; i < categories.size(); i++) {
             for(int j =0; j < categories.get(i).getWords().length; j++) {
@@ -124,6 +129,7 @@ public class Main extends PApplet{
             }
         }
     }
+
     public String foundCategory() {
         int count = 0;
         for (String string : selectedWords) {
@@ -180,18 +186,22 @@ public class Main extends PApplet{
         return "W";
     }
 
-
     public void mouseClicked() {
         for (Panel panel : panels) {
             panel.handleMouseClicked(mouseX, mouseY);
         }
     }
-    public void clearSelectedWords() {
-        draw();
-        selectedWords.clear();
-    }
+
     public void removeSelectedWord(int index) {
         selectedWords.remove(index);
+    }
+
+    public void reset() {
+        for(Panel p: panels) {
+            p.setDefaultColor(true);
+        }
+        selectedWords.clear();
+        draw();
     }
 }
 //x values are 140,380,620,860
