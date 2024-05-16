@@ -119,9 +119,7 @@ public class Main extends PApplet{
             System.out.println(selectedWords.size());
         }
         if(key == ' ') {
-            if(submitGuess) {
-                //submit guess
-            }
+            submitGuess = true;
         }
     }
     public void setCategoryWords() {
@@ -131,10 +129,69 @@ public class Main extends PApplet{
             }
         }
     }
-    public void foundCategory() {
-        //put found category at top
-        //remove category from arrayList
+    public String foundCategory() {
+        int count = 0;
+        if (submitGuess && selectedWords.size() == 4) {
+            for (int i = 0; i < selectedWords.size(); i++) {
+                for (String str : yellowWords) {
+                    if (selectedWords.get(i).equals(str)) {
+                        count++;
+                    }
+                }
+                if (count == 4) {
+                    return "Y"; //returns yellow category
+                }
+                if (count == 3) {
+                    return "1";
+                }
+            }
+            count = 0;
+            for (int i = 0; i < selectedWords.size(); i++) {
+                for (String str : greenWords) {
+                    if (selectedWords.get(i).equals(str)) {
+                        count++;
+                    }
+                }
+                if (count == 4) {
+                    return "G"; //returns green category
+                }
+                if (count == 3) {
+                    return "1";
+                }
+            }
+            count = 0;
+            for (int i = 0; i < selectedWords.size(); i++) {
+                for (String str : blueWords) {
+                    if (selectedWords.get(i).equals(str)) {
+                        count++;
+                    }
+                }
+                if (count == 4) {
+                    return "B"; //returns blue category
+                }
+                if (count == 3) {
+                    return "1";
+                }
+            }
+            count = 0;
+            for (int i = 0; i < selectedWords.size(); i++) {
+                for (String str : purpleWords) {
+                    if (selectedWords.get(i).equals(str)) {
+                        count++;
+                    }
+                }
+                if (count == 4) {
+                    return "P"; //returns purple category
+                }
+                if (count == 3) {
+                    return "1";
+                }
+            }
+        }
+        return "W";
     }
+
+
     public void mouseClicked() {
         for (Panel panel : panels) {
             panel.handleMouseClicked(mouseX, mouseY);
