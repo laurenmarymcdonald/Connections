@@ -132,50 +132,50 @@ public class Main extends PApplet{
                     count++;
                 }
             }
-            if (count == 4) {
-                return "Y"; //returns yellow category
-            } else if (count == 3) {
-                return "1";
-            }
         }
-            count = 0;
+        if (count == 4) {
+            return "Y"; //returns yellow category
+        } else if (count == 3) {
+            return "1";
+        }
+        count = 0;
         for (String s : selectedWords) {
             for (String str : greenWords) {
                 if (s.equals(str)) {
                     count++;
                 }
             }
-            if (count == 4) {
-                return "G"; //returns green category
-            } else if (count == 3) {
-                return "1";
-            }
         }
-            count = 0;
+        if (count == 4) {
+            return "G"; //returns green category
+        } else if (count == 3) {
+            return "1";
+        }
+        count = 0;
         for (String word : selectedWords) {
             for (String str : blueWords) {
                 if (word.equals(str)) {
                     count++;
                 }
             }
-            if (count == 4) {
-                return "B"; //returns blue category
-            } else if (count == 3) {
-                return "1";
-            }
         }
-            count = 0;
+        if (count == 4) {
+            return "B"; //returns blue category
+        } else if (count == 3) {
+            return "1";
+        }
+        count = 0;
         for (String selectedWord : selectedWords) {
             for (String str : purpleWords) {
                 if (selectedWord.equals(str)) {
                     count++;
                 }
             }
-            if (count == 4) {
-                return "P"; //returns purple category
-            } else if (count == 3) {
-                return "1";
-            }
+        }
+        if (count == 4) {
+            return "P"; //returns purple category
+        } else if (count == 3) {
+            return "1";
         }
         return "W";
     }
