@@ -1,5 +1,3 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import processing.core.PApplet;
 import java.util.ArrayList;
 
@@ -18,6 +16,7 @@ public class Main extends PApplet{
     private int NUMS_PANELS_VERTICAL = 4;
     private ArrayList<Panel> panels;
     private String categoryFound;
+    private int place;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -35,6 +34,7 @@ public class Main extends PApplet{
         purpleWords = new String[] {"Free Dress", "Off Campus", "College Sweatshirts", "Red Clothing"};
         mistakesRemaining = 4;
         categoryFound = "";
+        place = 0;
     }
 
     public void settings() {
@@ -51,18 +51,35 @@ public class Main extends PApplet{
         shuffle();
     }
     public void createPanels() {
+        //if (foundCategory().equals("Y")||foundCategory().equals("B")||foundCategory().equals("G")||foundCategory().equals("P")){
         Panel p;
         panels = new ArrayList<Panel>();
         int w = width/NUM_PANELS_HORIZONTAL-60;
         int h = height/NUMS_PANELS_VERTICAL-60;//subtract makes panels closer together
+        height -= 160;
         for (int i = 0; i <NUMS_PANELS_VERTICAL; i++) {
             for (int j = 0; j < NUM_PANELS_HORIZONTAL; j++) {
                 int x = j*w+140;
-                int y = i*h+180;
+                int y = i*h+180 + place;
                 p = new Panel(x, y, w, h,"");
                 panels.add(p);
             }
         }
+        place += 120;
+        /*} else {
+            Panel p;
+            panels = new ArrayList<Panel>();
+            int w = width/NUM_PANELS_HORIZONTAL-60;
+            int h = height/NUMS_PANELS_VERTICAL-60;//subtract makes panels closer together
+            for (int i = 0; i <NUMS_PANELS_VERTICAL; i++) {
+                for (int j = 0; j < NUM_PANELS_HORIZONTAL; j++) {
+                    int x = j*w+140;
+                    int y = i*h+180 + place;
+                    p = new Panel(x, y, w, h,"");
+                    panels.add(p);
+                }
+            }
+        }*/
     }
     public void draw() {
         if(startScreen) {
@@ -71,6 +88,29 @@ public class Main extends PApplet{
             textSize(50);
             text("Connections", 470,100);
             textSize(25);
+        }
+        else if(mistakesRemaining == 0) {
+            background(255);
+            fill(0);
+            textSize(50);
+            text("Connections", 470,100);
+            textSize(25);
+            fill(249, 223, 109);
+            stroke(249, 223, 109);
+            rect(200,180,800,100);
+            fill(160, 195, 90);
+            stroke(160, 195, 90);
+            rect(200,307,800,100);
+            fill(176, 196, 239);
+            stroke(176, 196, 239);
+            rect(200,434,800,100);
+            fill(187, 129, 197);
+            stroke(187, 129, 197);
+            rect(200,561,800,100);
+            fill(0);
+            textSize(35);
+            text("Traditions",520,220);
+
         }
         else {
             background(255);
@@ -131,6 +171,9 @@ public class Main extends PApplet{
             else {
                 System.out.println("not enough words selected");
             }
+        }
+        if(key == 'v') {
+            mistakesRemaining = 0;
         }
     }
 
