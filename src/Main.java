@@ -42,6 +42,15 @@ public class Main extends PApplet{
     }
 
     public void setup() {
+        createPanels();
+        categories.add(new Category("Traditions", yellowWords, "Yellow"));
+        categories.add(new Category("New Banned Uniform Items", greenWords, "Green"));
+        categories.add(new Category("Traditions", blueWords, "Blue"));
+        categories.add(new Category("New Banned Uniform Items", purpleWords, "Purple"));
+        setCategoryWords();
+        shuffle();
+    }
+    public void createPanels() {
         Panel p;
         panels = new ArrayList<Panel>();
         int w = width/NUM_PANELS_HORIZONTAL-60;
@@ -54,14 +63,7 @@ public class Main extends PApplet{
                 panels.add(p);
             }
         }
-        categories.add(new Category("Traditions", yellowWords, "Yellow"));
-        categories.add(new Category("New Banned Uniform Items", greenWords, "Green"));
-        categories.add(new Category("Traditions", blueWords, "Blue"));
-        categories.add(new Category("New Banned Uniform Items", purpleWords, "Purple"));
-        setCategoryWords();
-        shuffle();
     }
-
     public void draw() {
         if(startScreen) {
             background(255);
@@ -117,10 +119,9 @@ public class Main extends PApplet{
             if(selectedWords.size() == 4) {
                 categoryFound = foundCategory();
                 removeCategory(categoryFound);
-                for(int i = 0; i < categories.size();i++) {
-                    System.out.println(categories.get(i).getColor());
-                }
                 setCategoryWords();
+                NUMS_PANELS_VERTICAL--;
+                createPanels();
                 draw();
                 if(foundCategory().equals("W") || foundCategory().equals("1")) {
                     mistakesRemaining--;
