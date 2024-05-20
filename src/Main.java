@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Main extends PApplet{
     public static Main app;
-    public String[][] grid;
     public ArrayList<String> selectedWords;
     private ArrayList<Category> categories;
     private ArrayList<String> categoryWords;
@@ -15,8 +14,8 @@ public class Main extends PApplet{
     private String[] purpleWords;
     private boolean startScreen;
     private int mistakesRemaining;
-    private final int NUM_PANELS_HORIZONTAL = 4;
-    private final int NUMS_PANELS_VERTICAL = 4;
+    private int NUM_PANELS_HORIZONTAL = 4;
+    private int NUMS_PANELS_VERTICAL = 4;
     private ArrayList<Panel> panels;
     private String categoryFound;
 
@@ -28,7 +27,6 @@ public class Main extends PApplet{
         categories = new ArrayList<Category>();
         categoryWords = new ArrayList<String>();
         selectedWords = new ArrayList<String>();
-        grid = new String[4][4];
         startScreen = true;
         app = this;
         yellowWords = new String[]{"Tie Ceremony", "FDD", "Senior Mom Dance","Arillaga Speaker"};
@@ -85,11 +83,6 @@ public class Main extends PApplet{
         }
     }
 
-    public void resorting() {
-        setCategoryWords();
-        shuffle();
-    }
-
     public void shuffle(){
         for (Panel panel : panels){
             int word = (int)(Math.random()*categoryWords.size());
@@ -124,6 +117,9 @@ public class Main extends PApplet{
             if(selectedWords.size() == 4) {
                 categoryFound = foundCategory();
                 removeCategory(categoryFound);
+                for(int i = 0; i < categories.size();i++) {
+                    System.out.println(categories.get(i).getColor());
+                }
                 setCategoryWords();
                 draw();
                 if(foundCategory().equals("W") || foundCategory().equals("1")) {
@@ -150,44 +146,48 @@ public class Main extends PApplet{
                 categoryWords.remove(categoryWords.indexOf(str));
             }
             for(int i = 0; i < categories.size();i++) {
-                if(categories.get(i).getCategoryName().equals("Yellow")) {
+                if(categories.get(i).getColor().equals("Yellow")) {
                     categories.remove(i);
                     return;
                 }
             }
+            NUM_PANELS_HORIZONTAL--;
         }
         else if(c == "G") {
             for(String str: greenWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
             }
             for(int i = 0; i < categories.size();i++) {
-                if(categories.get(i).getCategoryName().equals("Green")) {
+                if(categories.get(i).getColor().equals("Green")) {
                     categories.remove(i);
                     return;
                 }
             }
+            NUM_PANELS_HORIZONTAL--;
         }
         else if(c == "B") {
             for(String str: blueWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
             }
             for(int i = 0; i < categories.size();i++) {
-                if(categories.get(i).getCategoryName().equals("Blue")) {
+                if(categories.get(i).getColor().equals("Blue")) {
                     categories.remove(i);
                     return;
                 }
             }
+            NUM_PANELS_HORIZONTAL--;
         }
         else if(c == "P") {
             for(String str: purpleWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
             }
             for(int i = 0; i < categories.size();i++) {
-                if(categories.get(i).getCategoryName().equals("Purple")) {
+                if(categories.get(i).getColor().equals("Purple")) {
                     categories.remove(i);
                     return;
                 }
             }
+            NUM_PANELS_HORIZONTAL--;
         }
     }
 
