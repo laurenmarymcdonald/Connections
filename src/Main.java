@@ -18,6 +18,7 @@ public class Main extends PApplet{
     private final int NUM_PANELS_HORIZONTAL = 4;
     private final int NUMS_PANELS_VERTICAL = 4;
     private ArrayList<Panel> panels;
+    private String categoryFound;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -35,6 +36,7 @@ public class Main extends PApplet{
         blueWords = new String[] {"Emo", "Zest", "Lemon", "Moon"};
         purpleWords = new String[] {"Free Dress", "Off Campus", "College Sweatshirts", "Red Clothing"};
         mistakesRemaining = 4;
+        categoryFound = "";
     }
 
     public void settings() {
@@ -99,7 +101,7 @@ public class Main extends PApplet{
     }
 
     public void keyPressed() {
-        if(key == ENTER) {
+        if(key == ' ') {
             if(startScreen) {
                 startScreen = false;
             }
@@ -118,9 +120,11 @@ public class Main extends PApplet{
         if(key == 'm') {
             System.out.println(selectedWords.size());
         }
-        if(key == ' ') {
+        if(key == ENTER) {
             if(selectedWords.size() == 4) {
-                System.out.println(foundCategory());
+                categoryFound = foundCategory();
+                removeCategory(categoryFound);
+                setCategoryWords();
                 draw();
                 if(foundCategory().equals("W") || foundCategory().equals("1")) {
                     mistakesRemaining--;
@@ -137,6 +141,28 @@ public class Main extends PApplet{
         for(int i = 0; i < categories.size(); i++) {
             for(int j =0; j < categories.get(i).getWords().length; j++) {
                 categoryWords.add(categories.get(i).getWords()[j]);
+            }
+        }
+    }
+    public void removeCategory(String c) {
+        if(c == "Y") {
+            for(String str: yellowWords) {
+                categoryWords.remove(categoryWords.indexOf(str));
+            }
+        }
+        else if(c == "G") {
+            for(String str: greenWords) {
+                categoryWords.remove(categoryWords.indexOf(str));
+            }
+        }
+        else if(c == "B") {
+            for(String str: blueWords) {
+                categoryWords.remove(categoryWords.indexOf(str));
+            }
+        }
+        else if(c == "P") {
+            for(String str: purpleWords) {
+                categoryWords.remove(categoryWords.indexOf(str));
             }
         }
     }
