@@ -149,20 +149,44 @@ public class Main extends PApplet{
             for(String str: yellowWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
             }
+            for(int i = 0; i < categories.size();i++) {
+                if(categories.get(i).getCategoryName().equals("Yellow")) {
+                    categories.remove(i);
+                    return;
+                }
+            }
         }
         else if(c == "G") {
             for(String str: greenWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
+            }
+            for(int i = 0; i < categories.size();i++) {
+                if(categories.get(i).getCategoryName().equals("Green")) {
+                    categories.remove(i);
+                    return;
+                }
             }
         }
         else if(c == "B") {
             for(String str: blueWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
             }
+            for(int i = 0; i < categories.size();i++) {
+                if(categories.get(i).getCategoryName().equals("Blue")) {
+                    categories.remove(i);
+                    return;
+                }
+            }
         }
         else if(c == "P") {
             for(String str: purpleWords) {
                 categoryWords.remove(categoryWords.indexOf(str));
+            }
+            for(int i = 0; i < categories.size();i++) {
+                if(categories.get(i).getCategoryName().equals("Purple")) {
+                    categories.remove(i);
+                    return;
+                }
             }
         }
     }
