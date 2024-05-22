@@ -135,6 +135,7 @@ public class Main extends PApplet{
                 panel.display();
             }
             showCategory(categoryFound);
+            textSize(30);
             text("Mistakes Remaining: " + mistakesRemaining, 470,740);
         }
     }
