@@ -24,11 +24,17 @@ public class Panel {
             Main.app.stroke(90, 89, 78);
         }
         Main.app.rect(x, y, 200, 100);
-        Main.app.textSize(30);
+        if(word.length() > 12) {
+            Main.app.textSize(23);
+        }
+        else {
+            Main.app.textSize(30);
+        }
         Main.app.fill(0);
         if(word.length() <= 6) {
             Main.app.text(word, x + 60, y + 60);
         }
+
         else {
             Main.app.text(word, x + 10, y + 60);
         }

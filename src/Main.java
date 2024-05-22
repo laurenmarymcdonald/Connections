@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import java.util.ArrayList;
+import processing.core.PImage;
 
 public class Main extends PApplet{
     public static Main app;
@@ -19,6 +20,8 @@ public class Main extends PApplet{
     private int place;
     private int x2;
     private int y2;
+    private int track;
+    private PImage img;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -39,6 +42,7 @@ public class Main extends PApplet{
         place = 0;
         x2 = 200;
         y2 = 180;
+        track = 0;
     }
 
     public void settings() {
@@ -51,6 +55,7 @@ public class Main extends PApplet{
         categories.add(new Category("New Banned Uniform Items", greenWords, "Green"));
         categories.add(new Category("Class Colors", blueWords, "Blue"));
         categories.add(new Category("Senior Privileges", purpleWords, "Purple"));
+        img = loadImage("image/ENTER.png");
         setCategoryWords();
         shuffle();
     }
@@ -89,11 +94,7 @@ public class Main extends PApplet{
     }
     public void draw() {
         if(startScreen) {
-            background(255);
-            fill(0);
-            textSize(50);
-            text("Connections", 470,100);
-            textSize(25);
+            image(img,0,0);
         }
         else if(mistakesRemaining == 0 || categories.size() == 1) {
             background(255);
@@ -133,6 +134,7 @@ public class Main extends PApplet{
             for (Panel panel : panels) {
                 panel.display();
             }
+            showCategory(categoryFound);
             text("Mistakes Remaining: " + mistakesRemaining, 470,740);
         }
     }
@@ -181,10 +183,10 @@ public class Main extends PApplet{
                     reset();
                 }
                 else{
+                    track++;
                     draw();
                     createPanels();
                     shuffle();
-                    showCategory(categoryFound);
                 }
             }
             else {
@@ -206,44 +208,122 @@ public class Main extends PApplet{
     }
     public void showCategory(String c) {
         if (c.equals("Y")) {
-            fill(249, 223, 109);
-            stroke(249, 223, 109);
-            rect(x2,y2,800,100);
-            fill(0);
-            textSize(35);
-            text("Traditions",515,220);
-            textSize(20);
-            text("Tie Ceremony, FDD, Senior Mom Dance, Arillaga Speaker",380,260);
-        }
-        else if(c.equals("G")) {
-            fill(160, 195, 90);
-            stroke(160, 195, 90);
-            rect(200,307,800,100);
-            fill(0);
-            textSize(35);
-            text("New Banned Uniform Items",400,347);
-            textSize(20);
-            text("Cut shirts, Sweats, Ugg slippers,Jeans",430,387);
-        }
-        else if(c.equals("B")) {
-            fill(176, 196, 239);
-            stroke(176, 196, 239);
-            rect(200,434,800,100);
-            fill(0);
-            textSize(35);
-            text("Class Colors",500,474);
-            textSize(20);
-            text("Yellow, Orange, Green, Blue",480,514);
-            textSize(20);
-            text("Free Dress, Off Campus, College Sweatshirts, Red",385,641);
-        }
-        else if(c.equals("P")){
-            fill(187, 129, 197);
-            stroke(187, 129, 197);
-            rect(200,561,800,100);
-            fill(0);
-            textSize(35);
-            text("Senior Privileges",480,601);
+            if (track == 1){
+                fill(249, 223, 109);
+                stroke(249, 223, 109);
+                rect(200,180,800,100);
+                fill(0);
+                textSize(35);
+                text("Traditions",515,220);
+                textSize(20);
+                text("Tie Ceremony, FDD, Senior Mom Dance, Arillaga Speaker",380,260);
+
+            } else if (track == 2){
+                fill(249, 223, 109);
+                stroke(249, 223, 109);
+                rect(200,307,800,100);
+                fill(0);
+                textSize(35);
+                text("Traditions",515,347);
+                textSize(20);
+                text("Tie Ceremony, FDD, Senior Mom Dance, Arillaga Speaker",380,387);
+            } else if (track == 3){
+                fill(249, 223, 109);
+                stroke(249, 223, 109);
+                rect(200,434,800,100);
+                fill(0);
+                textSize(35);
+                text("Traditions",515,474);
+                textSize(20);
+                text("Tie Ceremony, FDD, Senior Mom Dance, Arillaga Speaker",380,514);
+            }
+        } else if(c.equals("G")) {
+            if (track == 1){
+                fill(160, 195, 90);
+                stroke(160, 195, 90);
+                rect(200,180,800,100);
+                fill(0);
+                textSize(35);
+                text("New Banned Uniform Items",400,220);
+                textSize(20);
+                text("Cut shirts, Sweats, Ugg slippers,Jeans",430,260);
+            } else if (track == 2){
+                fill(160, 195, 90);
+                stroke(160, 195, 90);
+                rect(200,307,800,100);
+                fill(0);
+                textSize(35);
+                text("New Banned Uniform Items",400,347);
+                textSize(20);
+                text("Cut shirts, Sweats, Ugg slippers,Jeans",430,387);
+            } else if (track == 3){
+                fill(160, 195, 90);
+                stroke(160, 195, 90);
+                rect(200,434,800,100);
+                fill(0);
+                textSize(35);
+                text("New Banned Uniform Items",400,474);
+                textSize(20);
+                text("Cut shirts, Sweats, Ugg slippers,Jeans",430,514);
+            }
+        } else if(c.equals("B")) {
+            if (track == 1){
+                fill(176, 196, 239);
+                stroke(176, 196, 239);
+                rect(200,180,800,100);
+                fill(0);
+                textSize(35);
+                text("Class Colors",500,220);
+                textSize(20);
+                text("Yellow, Orange, Green, Blue",480,260);
+            } else if (track == 2){
+                fill(176, 196, 239);
+                stroke(176, 196, 239);
+                rect(200,307,800,100);
+                fill(0);
+                textSize(35);
+                text("Class Colors",500,347);
+                textSize(20);
+                text("Yellow, Orange, Green, Blue",480,387);
+            } else if (track == 3) {
+                fill(176, 196, 239);
+                stroke(176, 196, 239);
+                rect(200, 434, 800, 100);
+                fill(0);
+                textSize(35);
+                text("Class Colors",500,474);
+                textSize(20);
+                text("Yellow, Orange, Green, Blue",480,514);
+            }
+        } else if(c.equals("P")){
+            if (track == 1){
+                fill(187, 129, 197);
+                stroke(187, 129, 197);
+                rect(x2,y2,800,100);
+                fill(0);
+                textSize(35);
+                text("Senior Privileges",480,260);
+                textSize(20);
+                text("Free Dress, Off Campus, College Sweatshirts, Red",385,641);
+            } else if (track == 2){
+                fill(187, 129, 197);
+                stroke(187, 129, 197);
+                rect(200,307,800,100);
+                fill(0);
+                textSize(35);
+                text("Senior Privileges",480,347);
+                textSize(20);
+                text("Free Dress, Off Campus, College Sweatshirts, Red",385,387);
+            } else if (track == 3) {
+                fill(187, 129, 197);
+                stroke(187, 129, 197);
+                rect(200, 434, 800, 100);
+                fill(0);
+                textSize(35);
+                text("Senior Privileges",480,474);
+                textSize(20);
+                text("Free Dress, Off Campus, College Sweatshirts, Red",385,514);
+            }
         }
     }
     public void removeCategory(String c) {
@@ -374,4 +454,6 @@ public class Main extends PApplet{
 }
 //x values are 140,380,620,860
 //y values are 180, 307, 434, 561
+
+
 
