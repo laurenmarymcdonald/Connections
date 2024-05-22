@@ -302,9 +302,9 @@ public class Main extends PApplet{
                 rect(x2,y2,800,100);
                 fill(0);
                 textSize(35);
-                text("Senior Privileges",480,260);
+                text("Senior Privileges",480,220);
                 textSize(20);
-                text("Free Dress, Off Campus, College Sweatshirts, Red",385,641);
+                text("Free Dress, Off Campus, College Sweatshirts, Red",385,260);
             } else if (track == 2){
                 fill(187, 129, 197);
                 stroke(187, 129, 197);
@@ -454,6 +454,3 @@ public class Main extends PApplet{
 }
 //x values are 140,380,620,860
 //y values are 180, 307, 434, 561
-
-
-
