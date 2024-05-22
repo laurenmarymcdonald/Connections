@@ -17,6 +17,8 @@ public class Main extends PApplet{
     private ArrayList<Panel> panels;
     private String categoryFound;
     private int place;
+    private int x2;
+    private int y2;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -30,11 +32,13 @@ public class Main extends PApplet{
         app = this;
         yellowWords = new String[]{"Tie Ceremony", "FDD", "Senior Mom Dance","Arillaga Speaker"};
         greenWords = new String[]{"Cut shirts", "Sweats", "Ugg slippers","Jeans"};
-        blueWords = new String[] {"Emo", "Zest", "Lemon", "Moon"};
-        purpleWords = new String[] {"Free Dress", "Off Campus", "College Sweatshirts", "Red Clothing"};
+        blueWords = new String[] {"Yellow", "Orange", "Green", "Blue"};
+        purpleWords = new String[] {"Free Dress", "Off Campus", "College Sweatshirts", "Red"};
         mistakesRemaining = 4;
         categoryFound = "";
         place = 0;
+        x2 = 200;
+        y2 = 180;
     }
 
     public void settings() {
@@ -45,8 +49,8 @@ public class Main extends PApplet{
         createPanels();
         categories.add(new Category("Traditions", yellowWords, "Yellow"));
         categories.add(new Category("New Banned Uniform Items", greenWords, "Green"));
-        categories.add(new Category("Traditions", blueWords, "Blue"));
-        categories.add(new Category("New Banned Uniform Items", purpleWords, "Purple"));
+        categories.add(new Category("Class Colors", blueWords, "Blue"));
+        categories.add(new Category("Senior Privileges", purpleWords, "Purple"));
         setCategoryWords();
         shuffle();
     }
@@ -57,15 +61,17 @@ public class Main extends PApplet{
         int w = width/NUM_PANELS_HORIZONTAL-60;
         int h = height/NUMS_PANELS_VERTICAL-60;//subtract makes panels closer together
         height -= 160;
-        for (int i = 0; i <NUMS_PANELS_VERTICAL; i++) {
-            for (int j = 0; j < NUM_PANELS_HORIZONTAL; j++) {
-                int x = j*w+140;
-                int y = i*h+180 + place;
-                p = new Panel(x, y, w, h,"");
-                panels.add(p);
+        if(NUMS_PANELS_VERTICAL > 0) {
+            for (int i = 0; i < NUMS_PANELS_VERTICAL; i++) {
+                for (int j = 0; j < NUM_PANELS_HORIZONTAL; j++) {
+                    int x = j * w + 140;
+                    int y = i * h + 180 + place;
+                    p = new Panel(x, y, w, h, "");
+                    panels.add(p);
+                }
             }
+            place += 120;
         }
-        place += 120;
         /*} else {
             Panel p;
             panels = new ArrayList<Panel>();
@@ -89,12 +95,11 @@ public class Main extends PApplet{
             text("Connections", 470,100);
             textSize(25);
         }
-        else if(mistakesRemaining == 0) {
+        else if(mistakesRemaining == 0 || categories.size() == 1) {
             background(255);
             fill(0);
             textSize(50);
             text("Connections", 470,100);
-            textSize(25);
             fill(249, 223, 109);
             stroke(249, 223, 109);
             rect(200,180,800,100);
@@ -109,8 +114,15 @@ public class Main extends PApplet{
             rect(200,561,800,100);
             fill(0);
             textSize(35);
-            text("Traditions",520,220);
-
+            text("Traditions",515,220);
+            text("New Banned Uniform Items",400,347);
+            text("Class Colors",500,474);
+            text("Senior Privileges",480,601);
+            textSize(20);
+            text("Tie Ceremony, FDD, Senior Mom Dance, Arillaga Speaker",380,260);
+            text("Cut shirts, Sweats, Ugg slippers,Jeans",430,387);
+            text("Yellow, Orange, Green, Blue",480,514);
+            text("Free Dress, Off Campus, College Sweatshirts, Red",385,641);
         }
         else {
             background(255);
@@ -157,19 +169,27 @@ public class Main extends PApplet{
         }
         if(key == ENTER) {
             if(selectedWords.size() == 4) {
+                System.out.println(categoryWords);
                 categoryFound = foundCategory();
                 removeCategory(categoryFound);
-                setCategoryWords();
+                //setCategoryWords();
+                System.out.println(categoryWords);
                 NUMS_PANELS_VERTICAL--;
-                createPanels();
-                draw();
                 if(foundCategory().equals("W") || foundCategory().equals("1")) {
+                    NUMS_PANELS_VERTICAL++;
                     mistakesRemaining--;
                     reset();
+                }
+                else{
+                    draw();
+                    createPanels();
+                    shuffle();
+                    showCategory(categoryFound);
                 }
             }
             else {
                 System.out.println("not enough words selected");
+                System.out.println(selectedWords.size());
             }
         }
         if(key == 'v') {
@@ -184,10 +204,52 @@ public class Main extends PApplet{
             }
         }
     }
+    public void showCategory(String c) {
+        if (c.equals("Y")) {
+            fill(249, 223, 109);
+            stroke(249, 223, 109);
+            rect(x2,y2,800,100);
+            fill(0);
+            textSize(35);
+            text("Traditions",515,220);
+            textSize(20);
+            text("Tie Ceremony, FDD, Senior Mom Dance, Arillaga Speaker",380,260);
+        }
+        else if(c.equals("G")) {
+            fill(160, 195, 90);
+            stroke(160, 195, 90);
+            rect(200,307,800,100);
+            fill(0);
+            textSize(35);
+            text("New Banned Uniform Items",400,347);
+            textSize(20);
+            text("Cut shirts, Sweats, Ugg slippers,Jeans",430,387);
+        }
+        else if(c.equals("B")) {
+            fill(176, 196, 239);
+            stroke(176, 196, 239);
+            rect(200,434,800,100);
+            fill(0);
+            textSize(35);
+            text("Class Colors",500,474);
+            textSize(20);
+            text("Yellow, Orange, Green, Blue",480,514);
+            textSize(20);
+            text("Free Dress, Off Campus, College Sweatshirts, Red",385,641);
+        }
+        else if(c.equals("P")){
+            fill(187, 129, 197);
+            stroke(187, 129, 197);
+            rect(200,561,800,100);
+            fill(0);
+            textSize(35);
+            text("Senior Privileges",480,601);
+        }
+    }
     public void removeCategory(String c) {
-        if(c == "Y") {
+        if(c.equals("Y")) {
             for(String str: yellowWords) {
-                categoryWords.remove(categoryWords.indexOf(str));
+                categoryWords.remove(str);
             }
             for(int i = 0; i < categories.size();i++) {
                 if(categories.get(i).getColor().equals("Yellow")) {
@@ -197,9 +259,9 @@ public class Main extends PApplet{
             }
             NUM_PANELS_HORIZONTAL--;
         }
-        else if(c == "G") {
+        else if(c.equals("G")) {
             for(String str: greenWords) {
-                categoryWords.remove(categoryWords.indexOf(str));
+                categoryWords.remove(str);
             }
             for(int i = 0; i < categories.size();i++) {
                 if(categories.get(i).getColor().equals("Green")) {
@@ -209,9 +271,9 @@ public class Main extends PApplet{
             }
             NUM_PANELS_HORIZONTAL--;
         }
-        else if(c == "B") {
+        else if(c.equals("B")) {
             for(String str: blueWords) {
-                categoryWords.remove(categoryWords.indexOf(str));
+                categoryWords.remove(str);
             }
             for(int i = 0; i < categories.size();i++) {
                 if(categories.get(i).getColor().equals("Blue")) {
@@ -221,9 +283,10 @@ public class Main extends PApplet{
             }
             NUM_PANELS_HORIZONTAL--;
         }
-        else if(c == "P") {
+        else if(c.equals("P")) {
             for(String str: purpleWords) {
-                categoryWords.remove(categoryWords.indexOf(str));
+                categoryWords.remove(str);
+                setCategoryWords();
             }
             for(int i = 0; i < categories.size();i++) {
                 if(categories.get(i).getColor().equals("Purple")) {
@@ -311,3 +374,4 @@ public class Main extends PApplet{
 }
 //x values are 140,380,620,860
 //y values are 180, 307, 434, 561
+
