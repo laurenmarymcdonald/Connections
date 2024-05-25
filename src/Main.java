@@ -7,6 +7,7 @@ public class Main extends PApplet{
     public ArrayList<String> selectedWords;
     private ArrayList<Category> categories;
     private ArrayList<String> categoryWords;
+    private ArrayList<String> categoriesShown;
     private String[] yellowWords;
     private String[] greenWords;
     private String[] blueWords;
@@ -31,6 +32,7 @@ public class Main extends PApplet{
         categories = new ArrayList<Category>();
         categoryWords = new ArrayList<String>();
         selectedWords = new ArrayList<String>();
+        categoriesShown = new ArrayList<String>();
         startScreen = true;
         app = this;
         yellowWords = new String[]{"Tie Ceremony", "FDD", "Senior Mom Dance","Arillaga Speaker"};
@@ -134,7 +136,10 @@ public class Main extends PApplet{
             for (Panel panel : panels) {
                 panel.display();
             }
-            showCategory(categoryFound);
+            categoriesShown.add(categoryFound);
+            for (String s : categoriesShown) {
+                showCategory(s);
+            }
             textSize(30);
             text("Mistakes Remaining: " + mistakesRemaining, 470,740);
         }
