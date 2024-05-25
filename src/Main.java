@@ -351,6 +351,7 @@ public class Main extends PApplet{
                     return;
                 }
             }
+            yellowWords = null;
             NUM_PANELS_HORIZONTAL--;
         }
         else if(c.equals("G")) {
@@ -363,6 +364,7 @@ public class Main extends PApplet{
                     return;
                 }
             }
+            greenWords = null;
             NUM_PANELS_HORIZONTAL--;
         }
         else if(c.equals("B")) {
@@ -375,6 +377,7 @@ public class Main extends PApplet{
                     return;
                 }
             }
+            blueWords = null;
             NUM_PANELS_HORIZONTAL--;
         }
         else if(c.equals("P")) {
@@ -388,6 +391,7 @@ public class Main extends PApplet{
                     return;
                 }
             }
+            purpleWords = null;
             NUM_PANELS_HORIZONTAL--;
         }
     }
