@@ -325,7 +325,15 @@ public class Main extends PApplet{
                 textSize(20);
                 text("Free Dress, Off Campus, College Sweatshirts, Red",385,514);
             }
+        } else if(c.equals("1")) {
+            textSize(35);
+            text("One away",525,150);
         }
+        else if(c.equals("W")) {
+            textSize(35);
+            text("Wrong answer",500,150);
+        }
+
     }
     public void removeCategory(String c) {
         if(c.equals("Y")) {
