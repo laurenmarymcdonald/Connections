@@ -2,7 +2,6 @@
 
 A playable clone of the NYT *Connections* word game, built in Java with the [Processing](https://processing.org/) library. The puzzle is themed around Castilleja School traditions.
 
-![Gameplay screenshot](image/screenshot.png)
 
 ## How to play
 - Press **Space** to start from the title screen.
